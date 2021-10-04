@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function sortTable(n) {
+          var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+          table = document.getElementById("myTable");
+          switching = true;
+          dir = "asc";
+          while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+              shouldSwitch = false;
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+            }
+            if (shouldSwitch) {
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              switchcount ++;
+            } else {
+              if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+              }
+            }
+          }
+        }
+        const request = () =>{
+            $.ajax({
+                type: "GET",
+                url:"https://jsonplaceholder.typicode.com/posts",
+                success: function(data){
+                console.log(data)
+                data.forEach((data) => {
+                let table = document.getElementById("myTable")
+                let row = table.insertRow(-1)
+                let cell1 = row.insertCell(0)
+                let cell2 = row.insertCell(1)
+                cell1.innerHTML = data.userId 
+                cell2.innerHTML = data.title 
+                })
+            }
+        })
+    }
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <div id="nav">
+        <span id="navHome" onclick="window.location.href='index.html'">Home</span>
+        <span id="navMusic" onclick="window.location.href='music.html'">Music Samples</span>
+    </div>
+    <div id="table">
+        <div id="center"><button id="btstyle" onclick="request()">Api Request</button></div>
+    
+    <table id="myTable">
+        <tr>
+        <th onclick="sortTable(0)">User ID</th>
+        <th onclick="sortTable(1)"> Title</th>
+        </tr>
+    </div>
+</body>
+</html>

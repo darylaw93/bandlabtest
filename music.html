@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const play = (url) =>{
+            let song = new Audio(url)
+            song.play()
+        }
+        const pause = () =>{
+            let songs = document.getElementsByTagName('audio')
+            for(let i = 0; i<songs.length; i++) {
+                songs[i].pause()
+                songs[i].currentTime = 0
+            }
+            }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <div id="nav">
+        <span id="navHome" onclick="window.location.href='index.html'">Home</span>
+        <span id="navMusic" onclick="window.location.href='music.html'">Music Samples</span>
+    </div>
+    <h1 style="text-align: center;">Music page</h1>
+    <div id="center">
+        <audio controls>
+            <source src="https://static.bandlab.com/soundbanks/previews/new-wave-kit.ogg" type="audio/ogg">
+        </audio>
+        <audio controls>
+            <source src="https://static.bandlab.com/soundbanks/previews/synth-organ.ogg" type="audio/ogg">
+        </audio>
+    <button id="btstyle" onclick="pause()">Stop All Songs</button>
+</div>
+</body>
+</html>
